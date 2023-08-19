@@ -3,7 +3,7 @@ const optionsContainer = document.querySelector('.options-container');
 const newsContainer = document.querySelector('.news-container');
 const country = 'in';
 const options = ['general','entertainment','health','science','sports','technology'];
-var requestURL;
+// var requestURL;
 
 function generateUI(articles){
     for(let item of articles){
@@ -24,15 +24,15 @@ function generateUI(articles){
     }
 }
 
-async function getNews(){
+async function getNews(requestURL){
     newsContainer.innerHTML = "";
-    const response = await fetch(requestURL);
+    let response = await fetch(requestURL);
     console.log(response);
     if(!response.ok){
         alert('Data unavailbale at the moment. Please try again later.');
         return ;
     } 
-    const data = await response.json();
+    let data = await response.json();
     generateUI(data.articles);
 }
 
@@ -41,9 +41,9 @@ function selectCategory(e,category){
     options.forEach((element)=>{
         element.classList.remove('active');
     });
-    requestURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`;
+    let requestURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`;
     e.target.classList.add('active');
-    getNews();
+    getNews(requestURL);
 }
 
 function createOptions(){
@@ -55,14 +55,14 @@ function createOptions(){
     }
 }
 
-const init = () =>{
+const init = (requestURL) =>{
     optionsContainer.innerHTML ="";
-    getNews();
+    getNews(requestURL);
     createOptions();
 }
 
 window.onload = ()=>{
-    requestURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=general&apiKey=${apiKey}`;
-    init();
+    let requestURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=general&apiKey=${apiKey}`;
+    init(requestURL);
     return;
 };
