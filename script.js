@@ -27,17 +27,13 @@ function generateUI(articles){
 async function getNews(){
     newsContainer.innerHTML = "";
     const response = await fetch(requestURL);
-    // console.log(response);
-    const data = await response.json();
-    // console.log(response.ok);
+    console.log(response);
     if(!response.ok){
         alert('Data unavailbale at the moment. Please try again later.');
-        return false;
-        // console.log(response.ok);
+        return ;
     } 
+    const data = await response.json();
     generateUI(data.articles);
-    // console.log(data);
-            
 }
 
 function selectCategory(e,category){
@@ -47,7 +43,7 @@ function selectCategory(e,category){
     });
     requestURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`;
     e.target.classList.add('active');
-    getNews(requestURL);
+    getNews();
 }
 
 function createOptions(){
@@ -61,7 +57,7 @@ function createOptions(){
 
 const init = () =>{
     optionsContainer.innerHTML ="";
-    getNews(requestURL);
+    getNews();
     createOptions();
 }
 
