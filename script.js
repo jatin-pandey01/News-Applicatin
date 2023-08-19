@@ -6,7 +6,7 @@ const options = ['general','entertainment','health','science','sports','technolo
 // var requestURL;
 
 function generateUI(articles){
-    for(let item of articles){
+    for(let item in articles){
         const card = document.createElement('div');
         card.classList.add('news-card');
         card.innerHTML = `<div class = "news-image-container"> 
@@ -28,10 +28,10 @@ async function getNews(requestURL){
     newsContainer.innerHTML = "";
     let response = await fetch(requestURL);
     console.log(response);
-    // if(!response.ok){
-    //     alert('Data unavailbale at the moment. Please try again later.');
-    //     return ;
-    // } 
+    if(!response.ok){
+        alert('Data unavailbale at the moment. Please try again later.');
+        return ;
+    } 
     let data = await response.json();
     generateUI(data.articles);
 }
