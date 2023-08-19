@@ -1,16 +1,17 @@
-const apiKey = 'e1b060327fa8467997a5dbc212e9112f';
+const apiKey = '16eb65b8cab37c72f67c88447b3b380b';
 const optionsContainer = document.querySelector('.options-container');
 const newsContainer = document.querySelector('.news-container');
 const country = 'in';
-const options = ['general','entertainment','health','science','sports','technology'];
-// var requestURL;
+const options = ['general','nation','world','bussiness','entertainment','health','science','sports','technology'];
+var requestURL;
+
 
 function generateUI(articles){
-    for(let item in articles){
+    for(let item of articles){
         const card = document.createElement('div');
         card.classList.add('news-card');
         card.innerHTML = `<div class = "news-image-container"> 
-        <img src = "${item?.urlToImage || "./images/newsPaper.jpeg"}" alt="" />
+        <img src = "${item?.image || "./images/newsPaper.jpeg"}" alt="" />
         <div class = "news-content">
             <div class = "news-title">
                 ${item.title}
@@ -24,15 +25,16 @@ function generateUI(articles){
     }
 }
 
-async function getNews(requestURL){
+async function getNews(){
     newsContainer.innerHTML = "";
     let response = await fetch(requestURL);
-    console.log(response);
+    // console.log(response);
     if(!response.ok){
         alert('Data unavailbale at the moment. Please try again later.');
         return ;
     } 
     let data = await response.json();
+    // console.log(data);
     generateUI(data.articles);
 }
 
@@ -41,9 +43,9 @@ function selectCategory(e,category){
     options.forEach((element)=>{
         element.classList.remove('active');
     });
-    let requestURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`;
+    requestURL = `https://gnews.io/api/v4/top-headlines?country=in&lang=en&category=${category}&apikey=${apiKey}`;
     e.target.classList.add('active');
-    getNews(requestURL);
+    getNews();
 }
 
 function createOptions(){
@@ -55,14 +57,14 @@ function createOptions(){
     }
 }
 
-const init = (requestURL) =>{
+const init = () =>{
     optionsContainer.innerHTML ="";
-    getNews(requestURL);
     createOptions();
+    getNews();
 }
 
 window.onload = ()=>{
-    let requestURL = `https://newsapi.org/v2/top-headlines?country=${country}&category=general&apiKey=${apiKey}`;
-    init(requestURL);
+    requestURL = `https://gnews.io/api/v4/top-headlines?country=in&lang=en&category=general&apikey=16eb65b8cab37c72f67c88447b3b380b`;
+    init();
     return;
 };
