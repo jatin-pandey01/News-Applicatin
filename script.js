@@ -28,10 +28,10 @@ async function getNews(requestURL){
     newsContainer.innerHTML = "";
     let response = await fetch(requestURL);
     console.log(response);
-    if(!response.ok){
-        alert('Data unavailbale at the moment. Please try again later.');
-        return ;
-    } 
+    // if(!response.ok){
+    //     alert('Data unavailbale at the moment. Please try again later.');
+    //     return ;
+    // } 
     let data = await response.json();
     generateUI(data.articles);
 }
