@@ -24,19 +24,19 @@ function generateUI(articles){
     }
 }
 
-async function getNews(requestURL){
+async function getNews(){
     newsContainer.innerHTML = "";
     const response = await fetch(requestURL);
-    console.log(response);
+    // console.log(response);
     const data = await response.json();
-    console.log(response.ok);
+    // console.log(response.ok);
     if(!response.ok){
         alert('Data unavailbale at the moment. Please try again later.');
         return false;
         // console.log(response.ok);
     } 
     generateUI(data.articles);
-    console.log(data);
+    // console.log(data);
             
 }
 
@@ -51,15 +51,15 @@ function selectCategory(e,category){
 }
 
 function createOptions(){
-    console.log('Function');
+    // console.log('Function');
     for(let i of options){
-        console.log(`${i}`);
+        // console.log(`${i}`);
         optionsContainer.innerHTML += `<button class='options ${i == "general" ? "active":""}'
         onclick = "selectCategory(event,'${i}')">${i}</button>`;
     }
 }
 
-const init = ()=>{
+const init = () =>{
     optionsContainer.innerHTML ="";
     getNews(requestURL);
     createOptions();
