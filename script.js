@@ -11,7 +11,7 @@ function generateUI(articles){
         const card = document.createElement('div');
         card.classList.add('news-card');
         card.innerHTML = `<div class = "news-image-container"> 
-        <img src = "${item?.image || "./images/newsPaper.jpeg"}" alt="" />
+        <img src = "${item?.image || "./images/newsPaper.jpeg"}" alt="" loading="lazy" />
         <div class = "news-content">
             <div class = "news-title">
                 ${item.title}
@@ -34,7 +34,7 @@ async function getNews(){
         return ;
     } 
     let data = await response.json();
-    // console.log(data);
+    console.log(data);
     generateUI(data.articles);
 }
 
